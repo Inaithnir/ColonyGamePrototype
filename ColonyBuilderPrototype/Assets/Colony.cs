@@ -8,5 +8,21 @@ namespace GameEngine {
         List<District> colonyDistricts;
         Population totalPopulation;
 
+
+
+        //Constructor
+        public Colony() {
+
+            colonyDistricts = new List<District>();
+
+            colonyGoods = new GoodsManager(true);
+
+
+
+        }
+
+
+
+
     }
 }

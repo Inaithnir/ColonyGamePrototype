@@ -72,6 +72,44 @@ namespace GameEngine {
         }
 
 
+        public List<Good> getConsumptionList() {
+
+            List<Good> consumedGoods = new List<Good>();
+
+            foreach (KeyValuePair<Good, float> goodPairs in lastTickTotConsumed)
+                if (goodPairs.Value != 0)
+                    consumedGoods.Add(goodPairs.Key);
+
+
+            return consumedGoods;
+        }
+
+
+
+
+        public List<Good> getProductionList() {
+
+            List<Good> producedGoods = new List<Good>();
+
+            foreach (KeyValuePair<Good, float> goodPairs in lastTickTotProduced)
+                if (goodPairs.Value != 0)
+                    producedGoods.Add(goodPairs.Key);
+
+
+            return producedGoods;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
         public void updateTick() {
 

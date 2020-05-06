@@ -115,7 +115,7 @@ namespace GameEngine {
 
             List<Good> producedGoods = new List<Good>();
 
-            foreach (KeyValuePair<Good, float> goodPairs in lastTickConsumed) 
+            foreach (KeyValuePair<Good, float> goodPairs in lastTickProduced) 
                 if(goodPairs.Value != 0)
                     producedGoods.Add(goodPairs.Key);
             

@@ -99,7 +99,7 @@ namespace GameEngine {
         public float calcBuildingConsumption(Good goodType) {
             float buildingConsump = 0;
             foreach (Building building in DistrictBuildings) {
-                buildingConsump += building.calcConsumption(goodType) * BuildingConsumpMod; //To change to work with dictionary of modifiers
+                buildingConsump += building.getConsumed(goodType) * BuildingConsumpMod; //To change to work with dictionary of modifiers
             }
             return buildingConsump;
         }
@@ -116,7 +116,7 @@ namespace GameEngine {
         public float calcBuildingProduced(Good goodType) {
             float buildingProduced = 0;
             foreach (Building building in DistrictBuildings) {
-                buildingProduced += building.calcProduction(goodType) * BuildingProdMod; //To change to work with dictionary of modifiers
+                buildingProduced += building.getProduced(goodType) * BuildingProdMod; //To change to work with dictionary of modifiers
             }
             return buildingProduced;
         }

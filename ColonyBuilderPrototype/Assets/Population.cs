@@ -18,6 +18,8 @@ namespace GameEngine {
 
             CurrentPop = 0;
 
+            demographics = new Demographic[3];
+
             for (int i=0; i<3; i++) {
                 demographics[i] = new Demographic((Demographic.DemoType)(i + 1));
                 CurrentPop += demographics[i].NumPeople;

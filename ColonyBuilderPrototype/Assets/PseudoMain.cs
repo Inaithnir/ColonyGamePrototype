@@ -9,6 +9,8 @@ public class PseudoMain : MonoBehaviour
     
     
     public Text outputField;
+
+    Game testGame;
     
     
     
@@ -18,9 +20,8 @@ public class PseudoMain : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Good testGood = new Good(Good.GoodList.Food);
+        testGame = new Game();
 
-        outputField.text = testGood.Name.ToString();
     }
 
     // Update is called once per frame

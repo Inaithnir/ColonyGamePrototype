@@ -135,8 +135,18 @@ namespace GameEngine {
         }
 
 
-
-
+        public Dictionary<Good,float> getPeopleProduction() {
+            return peopleLastProduced;
+        }
+        public Dictionary<Good, float> getPeopleConsumption() {
+            return peopleLastConsumed;
+        }
+        public Dictionary<Good, float> getBuildingProduction() {
+            return buildingLastProduced;
+        }
+        public Dictionary<Good, float> getBuildingConsumption() {
+            return buildingLastConsumed;
+        }
 
 
 

@@ -22,11 +22,17 @@ public class PseudoMain : MonoBehaviour
     {
         testGame = new Game();
 
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown("space"))
+        {
+            
+            testGame.updateTick();
+            Debug.Log("Tick done!");
+        }
     }
 }

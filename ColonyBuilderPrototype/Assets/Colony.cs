@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace GameEngine {
     class Colony {
@@ -25,13 +26,27 @@ namespace GameEngine {
 
             colonyGoods = new GoodsManager(true);
 
+
+
+
+
+
+
             ColonyPopulation = 0;
 
             colonyName = name;
 
 
+            globalPeopleProdMod = 1;
+            globalPeopleConsMod = 1;
+            globalBuildingProdMod = 1;
+            globalBuildingConsMod = 1;
 
-            colonyGoods.changeAmount(new Good(Good.GoodList.Food), 100);
+
+
+
+
+            colonyGoods.changeAmount(Good.GoodList.Food, 100);
         }
 
 
@@ -64,10 +79,10 @@ namespace GameEngine {
 
             ColonyPopulation = 0;
 
-            Dictionary<Good, float> peopleConsumed = new Dictionary<Good, float>();
-            Dictionary<Good, float> peopleProduced = new Dictionary<Good, float>();
-            Dictionary<Good, float> buildingConsumed = new Dictionary<Good, float>();
-            Dictionary<Good, float> buildingProduced = new Dictionary<Good, float>();
+            Dictionary<Good.GoodList, float> peopleConsumed = new Dictionary<Good.GoodList, float>();
+            Dictionary<Good.GoodList, float> peopleProduced = new Dictionary<Good.GoodList, float>();
+            Dictionary<Good.GoodList, float> buildingConsumed = new Dictionary<Good.GoodList, float>();
+            Dictionary<Good.GoodList, float> buildingProduced = new Dictionary<Good.GoodList, float>();
 
 
             foreach (District district in colonyDistricts) {
@@ -81,16 +96,16 @@ namespace GameEngine {
                 buildingConsumed = district.getBuildingConsumption();
                 buildingProduced = district.getBuildingProduction();
 
-                foreach(KeyValuePair<Good,float> goodPair in peopleConsumed) {
+                foreach(KeyValuePair<Good.GoodList, float> goodPair in peopleConsumed) {
                     colonyGoods.changeAmount(goodPair.Key,(int) Math.Round( goodPair.Value * globalPeopleConsMod));
                 }
-                foreach (KeyValuePair<Good, float> goodPair in peopleProduced) {
+                foreach (KeyValuePair<Good.GoodList, float> goodPair in peopleProduced) {
                     colonyGoods.changeAmount(goodPair.Key, (int)Math.Round(goodPair.Value * globalPeopleProdMod));
                 }
-                foreach (KeyValuePair<Good, float> goodPair in buildingConsumed) {
+                foreach (KeyValuePair<Good.GoodList, float> goodPair in buildingConsumed) {
                     colonyGoods.changeAmount(goodPair.Key, (int)Math.Round(goodPair.Value * globalBuildingConsMod));
                 }
-                foreach (KeyValuePair<Good, float> goodPair in buildingProduced) {
+                foreach (KeyValuePair<Good.GoodList, float> goodPair in buildingProduced) {
                     colonyGoods.changeAmount(goodPair.Key, (int)Math.Round(goodPair.Value * globalBuildingProdMod));
                 }
 
@@ -105,7 +120,10 @@ namespace GameEngine {
 
 
 
-
+        public GoodsManager getGoodsManager()
+        {
+            return colonyGoods;
+        }
 
     }
 }

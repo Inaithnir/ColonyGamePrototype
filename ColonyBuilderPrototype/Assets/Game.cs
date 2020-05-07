@@ -17,12 +17,15 @@ namespace GameEngine {
 
 
             playerColony.addDistrict(new District(District.DistrictList.Borough));
-
         }
 
 
 
-
+        public void updateTick()
+        {
+            
+            playerColony.updateTick();
+        }
 
 
     }

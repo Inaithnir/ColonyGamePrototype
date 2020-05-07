@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static GameEngine.GameData;
 
 namespace GameEngine {
 
@@ -14,10 +15,10 @@ namespace GameEngine {
 
         public BuildingType MyType { get; }
 
-        Dictionary<Good.GoodList, float> baseConsumption;
-        Dictionary<Good.GoodList, float> baseProduction;
+        Dictionary<GoodType, float> baseConsumption;
+        Dictionary<GoodType, float> baseProduction;
 
-        Dictionary<Good.GoodList, int> ConstructionCost;
+        Dictionary<GoodType, int> ConstructionCost;
 
         public int SpaceRequired { get; }
 
@@ -31,10 +32,10 @@ namespace GameEngine {
 
             MyType = buildingType;
 
-            baseConsumption = new Dictionary<Good.GoodList, float>(); //these values have to be read in from a file somewhere
-            baseConsumption = new Dictionary<Good.GoodList, float>(); //these values have to be read in from a file somewhere
+            baseConsumption = new Dictionary<GoodType, float>(); //these values have to be read in from a file somewhere
+            baseConsumption = new Dictionary<GoodType, float>(); //these values have to be read in from a file somewhere
 
-            ConstructionCost = new Dictionary<Good.GoodList, int>();  //these values have to be read in from a file somewhere
+            ConstructionCost = new Dictionary<GoodType, int>();  //these values have to be read in from a file somewhere
 
             SpaceRequired = 1; //these values have to be read in from a file or enum somewhere
 
@@ -50,7 +51,7 @@ namespace GameEngine {
 
         
 
-        public float getConsumed(Good.GoodList good) {
+        public float getConsumed(GoodType good) {
             if (baseConsumption.ContainsKey(good))
                 return baseConsumption[good];
 
@@ -60,7 +61,7 @@ namespace GameEngine {
 
 
 
-        public float getProduced(Good.GoodList good) {
+        public float getProduced(GoodType good) {
             if (baseProduction.ContainsKey(good))
                 return baseProduction[good];
 
@@ -70,11 +71,11 @@ namespace GameEngine {
 
 
 
-        public List<Good.GoodList> getConsumptionList() {
+        public List<GoodType> getConsumptionList() {
 
-            List<Good.GoodList> consumedGoods = new List<Good.GoodList>();
+            List<GoodType> consumedGoods = new List<GoodType>();
 
-            foreach (KeyValuePair<Good.GoodList, float> goodPairs in baseConsumption)
+            foreach (KeyValuePair<GoodType, float> goodPairs in baseConsumption)
                 if (goodPairs.Value != 0)
                     consumedGoods.Add(goodPairs.Key);
 
@@ -85,11 +86,11 @@ namespace GameEngine {
 
 
 
-        public List<Good.GoodList> getProductionList() {
+        public List<GoodType> getProductionList() {
 
-            List<Good.GoodList> producedGoods = new List<Good.GoodList>();
+            List<GoodType> producedGoods = new List<GoodType>();
 
-            foreach (KeyValuePair<Good.GoodList, float> goodPairs in baseProduction)
+            foreach (KeyValuePair<GoodType, float> goodPairs in baseProduction)
                 if (goodPairs.Value != 0)
                     producedGoods.Add(goodPairs.Key);
 
@@ -100,7 +101,7 @@ namespace GameEngine {
 
 
 
-        public Dictionary<Good.GoodList, int> getConstructionCost() {
+        public Dictionary<GoodType, int> getConstructionCost() {
             return ConstructionCost;
         }
 

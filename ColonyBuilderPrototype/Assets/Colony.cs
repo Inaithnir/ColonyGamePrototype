@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static GameEngine.GameData;
 
 namespace GameEngine {
     class Colony {
@@ -46,7 +47,7 @@ namespace GameEngine {
 
 
 
-            colonyGoods.changeAmount(Good.GoodList.Food, 100);
+            colonyGoods.changeAmount(GoodType.Food, 100);
         }
 
 
@@ -79,10 +80,10 @@ namespace GameEngine {
 
             ColonyPopulation = 0;
 
-            Dictionary<Good.GoodList, float> peopleConsumed = new Dictionary<Good.GoodList, float>();
-            Dictionary<Good.GoodList, float> peopleProduced = new Dictionary<Good.GoodList, float>();
-            Dictionary<Good.GoodList, float> buildingConsumed = new Dictionary<Good.GoodList, float>();
-            Dictionary<Good.GoodList, float> buildingProduced = new Dictionary<Good.GoodList, float>();
+            Dictionary<GoodType, float> peopleConsumed = new Dictionary<GoodType, float>();
+            Dictionary<GoodType, float> peopleProduced = new Dictionary<GoodType, float>();
+            Dictionary<GoodType, float> buildingConsumed = new Dictionary<GoodType, float>();
+            Dictionary<GoodType, float> buildingProduced = new Dictionary<GoodType, float>();
 
 
             foreach (District district in colonyDistricts) {
@@ -96,16 +97,16 @@ namespace GameEngine {
                 buildingConsumed = district.getBuildingConsumption();
                 buildingProduced = district.getBuildingProduction();
 
-                foreach(KeyValuePair<Good.GoodList, float> goodPair in peopleConsumed) {
+                foreach(KeyValuePair<GoodType, float> goodPair in peopleConsumed) {
                     colonyGoods.changeAmount(goodPair.Key,(int) Math.Round( goodPair.Value * globalPeopleConsMod));
                 }
-                foreach (KeyValuePair<Good.GoodList, float> goodPair in peopleProduced) {
+                foreach (KeyValuePair<GoodType, float> goodPair in peopleProduced) {
                     colonyGoods.changeAmount(goodPair.Key, (int)Math.Round(goodPair.Value * globalPeopleProdMod));
                 }
-                foreach (KeyValuePair<Good.GoodList, float> goodPair in buildingConsumed) {
+                foreach (KeyValuePair<GoodType, float> goodPair in buildingConsumed) {
                     colonyGoods.changeAmount(goodPair.Key, (int)Math.Round(goodPair.Value * globalBuildingConsMod));
                 }
-                foreach (KeyValuePair<Good.GoodList, float> goodPair in buildingProduced) {
+                foreach (KeyValuePair<GoodType, float> goodPair in buildingProduced) {
                     colonyGoods.changeAmount(goodPair.Key, (int)Math.Round(goodPair.Value * globalBuildingProdMod));
                 }
 

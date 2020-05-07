@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Permissions;
 using UnityEngine;
+using static GameEngine.GameData;
 
 namespace GameEngine {
 
@@ -9,17 +10,17 @@ namespace GameEngine {
     class GoodsManager {
 
         Dictionary<Good, int> pileOGoods;
-        Dictionary<Good.GoodList, Good> goodTable;
+        Dictionary<GoodType, Good> goodTable;
 
         //constructor
         public GoodsManager(bool fullList) {
 
             pileOGoods = new Dictionary<Good, int>();
-            goodTable = new Dictionary<Good.GoodList, Good>();
+            goodTable = new Dictionary<GoodType, Good>();
             
             if (fullList == true) {
 
-                foreach(Good.GoodList goodType in Enum.GetValues(typeof(Good.GoodList)))
+                foreach(GoodType goodType in Enum.GetValues(typeof(GoodType)))
                 {
                     Good goodToAdd = new Good(goodType);
                     pileOGoods.Add(goodToAdd, 0);
@@ -39,7 +40,7 @@ namespace GameEngine {
         *    Good goodQuery - good that we need the amount of
         * Returns: int, the amount of the good (or 0 if doesnt exist)
         */
-        public int getAmount(Good.GoodList goodQuery) {
+        public int getAmount(GoodType goodQuery) {
             Good matchGood = goodTable[goodQuery];
             if (pileOGoods.ContainsKey(matchGood))
                 return pileOGoods[matchGood];
@@ -54,7 +55,7 @@ namespace GameEngine {
         *    int delta - the amount to change the value of the good by (or initialize with)
         * Returns: zip
         */
-        public void changeAmount (Good.GoodList goodToChange,int delta) {
+        public void changeAmount (GoodType goodToChange,int delta) {
             Good matchGood = goodTable[goodToChange];
             if (pileOGoods.ContainsKey(matchGood))
                 pileOGoods[matchGood] += delta;
@@ -66,7 +67,7 @@ namespace GameEngine {
         }
 
 
-        public Good getGood(Good.GoodList goodToGet)
+        public Good getGood(GoodType goodToGet)
         {
             if (goodTable.ContainsKey(goodToGet))
                 return goodTable[goodToGet];

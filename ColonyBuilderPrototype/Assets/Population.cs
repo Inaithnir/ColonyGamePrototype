@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static GameEngine.GameData;
 
 namespace GameEngine {
     class Population {
@@ -7,8 +8,8 @@ namespace GameEngine {
         public int CurrentPop { get; private set; }
         Demographic[] demographics;
 
-        Dictionary<Good.GoodList, float> lastTickTotConsumed;
-        Dictionary<Good.GoodList, float> lastTickTotProduced;
+        Dictionary<GoodType, float> lastTickTotConsumed;
+        Dictionary<GoodType, float> lastTickTotProduced;
 
 
 
@@ -25,8 +26,8 @@ namespace GameEngine {
                 CurrentPop += demographics[i].NumPeople;
             }
             
-            lastTickTotConsumed = new Dictionary<Good.GoodList, float>();
-            lastTickTotProduced = new Dictionary<Good.GoodList, float>();
+            lastTickTotConsumed = new Dictionary<GoodType, float>();
+            lastTickTotProduced = new Dictionary<GoodType, float>();
             
         }
 
@@ -34,7 +35,7 @@ namespace GameEngine {
 
         //Methods
 
-        public float calcConsumption(Good.GoodList good) {
+        public float calcConsumption(GoodType good) {
             float totalConsumption = 0;
 
             foreach(Demographic demographic in demographics) {
@@ -45,7 +46,7 @@ namespace GameEngine {
             
         }
 
-        public float getLastConsumption(Good.GoodList good) {
+        public float getLastConsumption(GoodType good) {
             if (lastTickTotConsumed.ContainsKey(good))
                 return lastTickTotConsumed[good];
 
@@ -55,7 +56,7 @@ namespace GameEngine {
 
 
 
-        public float calcProduction(Good.GoodList good) {
+        public float calcProduction(GoodType good) {
             float totalProduction = 0;
 
             foreach (Demographic demographic in demographics) {
@@ -66,7 +67,7 @@ namespace GameEngine {
 
         }
 
-        public float getLastProduction(Good.GoodList good) {
+        public float getLastProduction(GoodType good) {
             if (lastTickTotProduced.ContainsKey(good))
                 return lastTickTotProduced[good];
 
@@ -74,11 +75,11 @@ namespace GameEngine {
         }
 
 
-        public List<Good.GoodList> getConsumptionList() {
+        public List<GoodType> getConsumptionList() {
 
-            List<Good.GoodList> consumedGoods = new List<Good.GoodList>();
+            List<GoodType> consumedGoods = new List<GoodType>();
 
-            foreach (KeyValuePair<Good.GoodList, float> goodPairs in lastTickTotConsumed)
+            foreach (KeyValuePair<GoodType, float> goodPairs in lastTickTotConsumed)
                 if (goodPairs.Value != 0)
                     consumedGoods.Add(goodPairs.Key);
 
@@ -89,11 +90,11 @@ namespace GameEngine {
 
 
 
-        public List<Good.GoodList> getProductionList() {
+        public List<GoodType> getProductionList() {
 
-            List<Good.GoodList> producedGoods = new List<Good.GoodList>();
+            List<GoodType> producedGoods = new List<GoodType>();
 
-            foreach (KeyValuePair<Good.GoodList, float> goodPairs in lastTickTotProduced)
+            foreach (KeyValuePair<GoodType, float> goodPairs in lastTickTotProduced)
                 if (goodPairs.Value != 0)
                     producedGoods.Add(goodPairs.Key);
 
@@ -116,10 +117,10 @@ namespace GameEngine {
         public void updateTick() {
 
             //First, reset all consumption and production values to zero
-            foreach(KeyValuePair<Good.GoodList, float> goodPair in lastTickTotConsumed) {
+            foreach(KeyValuePair<GoodType, float> goodPair in lastTickTotConsumed) {
                 lastTickTotConsumed[goodPair.Key] = 0;
             }
-            foreach (KeyValuePair<Good.GoodList, float> goodPair in lastTickTotProduced) {
+            foreach (KeyValuePair<GoodType, float> goodPair in lastTickTotProduced) {
                 lastTickTotProduced[goodPair.Key] = 0;
             }
 
@@ -137,19 +138,19 @@ namespace GameEngine {
 
                 demographic.updateTick();
 
-                List<Good.GoodList> goodsConsumptionList = demographic.getConsumptionList();
-                List<Good.GoodList> goodsProductionList = demographic.getProductionList();
+                List<GoodType> goodsConsumptionList = demographic.getConsumptionList();
+                List<GoodType> goodsProductionList = demographic.getProductionList();
 
 
 
-                foreach(Good.GoodList good in goodsConsumptionList) {
+                foreach(GoodType good in goodsConsumptionList) {
                     if (lastTickTotConsumed.ContainsKey(good) == false)//if good is not yet in, add it
                         lastTickTotConsumed.Add(good, demographic.getLastConsumption(good));
                     else
                         lastTickTotConsumed[good] += demographic.getLastConsumption(good);
                 }
 
-                foreach (Good.GoodList good in goodsProductionList) {
+                foreach (GoodType good in goodsProductionList) {
                     if (lastTickTotProduced.ContainsKey(good) == false)//if good is not yet in, add it
                         lastTickTotProduced.Add(good, demographic.getLastProduction(good));
                     else

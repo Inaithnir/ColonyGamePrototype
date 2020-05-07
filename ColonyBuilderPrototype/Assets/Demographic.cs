@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static GameEngine.GameData;
 
 namespace GameEngine {
     
@@ -27,11 +28,11 @@ namespace GameEngine {
         public DemoType MyDemoType { get; }
         public int NumPeople { get; }
         public int BaseTargetPop { get; }
-        Dictionary<Good.GoodList, float> goodConsumeWeights;
-        Dictionary<Good.GoodList, float> goodProduceWeights;
+        Dictionary<GoodType, float> goodConsumeWeights;
+        Dictionary<GoodType, float> goodProduceWeights;
 
-        Dictionary<Good.GoodList, float> lastTickConsumed;
-        Dictionary<Good.GoodList, float> lastTickProduced;
+        Dictionary<GoodType, float> lastTickConsumed;
+        Dictionary<GoodType, float> lastTickProduced;
 
         // constructors
 
@@ -43,20 +44,20 @@ namespace GameEngine {
 
 
 
-            goodConsumeWeights = new Dictionary<Good.GoodList, float>() {
-                {Good.GoodList.Food, 0.1f },
+            goodConsumeWeights = new Dictionary<GoodType, float>() {
+                {GoodType.Food, 0.1f },
             };
 
 
 
-            goodProduceWeights = new Dictionary<Good.GoodList, float>() {
-                {Good.GoodList.Food, 0 },
+            goodProduceWeights = new Dictionary<GoodType, float>() {
+                {GoodType.Food, 0 },
             };
 
 
 
-            lastTickConsumed = new Dictionary<Good.GoodList, float>();
-            lastTickProduced = new Dictionary<Good.GoodList, float>();
+            lastTickConsumed = new Dictionary<GoodType, float>();
+            lastTickProduced = new Dictionary<GoodType, float>();
 
 
 
@@ -69,7 +70,7 @@ namespace GameEngine {
 
         // methods
         
-        public float calcConsumption(Good.GoodList good) {
+        public float calcConsumption(GoodType good) {
 
             float toReturn = 0;
 
@@ -79,7 +80,7 @@ namespace GameEngine {
             return toReturn;            
         }
 
-        public float getLastConsumption(Good.GoodList good) {
+        public float getLastConsumption(GoodType good) {
             if (lastTickConsumed.ContainsKey(good))
                 return lastTickConsumed[good];
 
@@ -89,7 +90,7 @@ namespace GameEngine {
 
 
 
-        public float calcProduction(Good.GoodList good) {
+        public float calcProduction(GoodType good) {
 
             float toReturn = 0;
 
@@ -99,7 +100,7 @@ namespace GameEngine {
             return toReturn;
         }
 
-        public float getLastProduction(Good.GoodList good) {
+        public float getLastProduction(GoodType good) {
             if (lastTickProduced.ContainsKey(good))
                 return lastTickProduced[good];
 
@@ -107,11 +108,11 @@ namespace GameEngine {
 
         }
 
-        public List<Good.GoodList> getConsumptionList() {
+        public List<GoodType> getConsumptionList() {
 
-            List<Good.GoodList> consumedGoods = new List<Good.GoodList>();
+            List<GoodType> consumedGoods = new List<GoodType>();
 
-            foreach(KeyValuePair<Good.GoodList, float> goodPairs in lastTickConsumed)
+            foreach(KeyValuePair<GoodType, float> goodPairs in lastTickConsumed)
                 if (goodPairs.Value != 0)
                     consumedGoods.Add(goodPairs.Key);
             
@@ -119,11 +120,11 @@ namespace GameEngine {
             return consumedGoods;
         }
 
-        public List<Good.GoodList> getProductionList() {
+        public List<GoodType> getProductionList() {
 
-            List<Good.GoodList> producedGoods = new List<Good.GoodList>();
+            List<GoodType> producedGoods = new List<GoodType>();
 
-            foreach (KeyValuePair<Good.GoodList, float> goodPairs in lastTickProduced) 
+            foreach (KeyValuePair<GoodType, float> goodPairs in lastTickProduced) 
                 if(goodPairs.Value != 0)
                     producedGoods.Add(goodPairs.Key);
             
@@ -138,7 +139,7 @@ namespace GameEngine {
         public void updateTick() { //later this will need to take into account if there's enough to consume, update satisfaction, etc.
 
             //update lastTickConsumed
-            foreach (KeyValuePair<Good.GoodList, float> goodPair in goodConsumeWeights) {
+            foreach (KeyValuePair<GoodType, float> goodPair in goodConsumeWeights) {
 
                 if (lastTickConsumed.ContainsKey(goodPair.Key))
                     lastTickConsumed[goodPair.Key] = NumPeople * goodPair.Value;
@@ -148,7 +149,7 @@ namespace GameEngine {
             }
 
             //update lastTickProduced
-            foreach (KeyValuePair<Good.GoodList, float> goodPair in goodProduceWeights) {
+            foreach (KeyValuePair<GoodType, float> goodPair in goodProduceWeights) {
 
                 if (lastTickProduced.ContainsKey(goodPair.Key))
                     lastTickProduced[goodPair.Key] = NumPeople * goodPair.Value;

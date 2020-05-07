@@ -79,7 +79,7 @@ namespace GameEngine {
             String stringToReturn = "";
             foreach(KeyValuePair<Good,int> goodPair in pileOGoods)
             {
-                stringToReturn += goodPair.Key.Name + " " + goodPair.Key.Description + " with amount " + goodPair.Value;
+                stringToReturn += goodPair.Key.Name + " with amount " + goodPair.Value;
             }
 
             return stringToReturn;

@@ -117,11 +117,15 @@ namespace GameEngine {
         public void updateTick() {
 
             //First, reset all consumption and production values to zero
-            foreach(KeyValuePair<GoodType, float> goodPair in lastTickTotConsumed) {
-                lastTickTotConsumed[goodPair.Key] = 0;
+            List<GoodType> iterateKeys = new List<GoodType>(lastTickTotConsumed.Keys);
+            foreach (GoodType goodPair in iterateKeys) {
+                lastTickTotConsumed[goodPair] = 0;
             }
-            foreach (KeyValuePair<GoodType, float> goodPair in lastTickTotProduced) {
-                lastTickTotProduced[goodPair.Key] = 0;
+
+            iterateKeys.Clear();
+            iterateKeys.AddRange(lastTickTotProduced.Keys);
+            foreach (GoodType goodPair in iterateKeys) {
+                lastTickTotProduced[goodPair] = 0;
             }
 
 

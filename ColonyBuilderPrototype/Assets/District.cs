@@ -192,11 +192,17 @@ namespace GameEngine {
             List<GoodType> buildingGoodProdList = new List<GoodType>();
 
 
-            foreach (KeyValuePair<GoodType, float> goodPair in buildingLastConsumed) {
-                buildingLastConsumed[goodPair.Key] = 0;
+            List<GoodType> iterateKeys = new List<GoodType>(buildingLastConsumed.Keys);
+
+            foreach (GoodType goodPair in iterateKeys) {
+                buildingLastConsumed[goodPair] = 0;
             }
-            foreach (KeyValuePair<GoodType, float> goodPair in buildingLastProduced) {
-                buildingLastProduced[goodPair.Key] = 0;
+
+
+            iterateKeys.Clear();
+            iterateKeys.AddRange(buildingLastProduced.Keys);
+            foreach (GoodType goodPair in iterateKeys) {
+                buildingLastProduced[goodPair] = 0;
             }
 
             foreach (Building building in DistrictBuildings) { 

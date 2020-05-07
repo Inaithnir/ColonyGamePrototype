@@ -45,7 +45,7 @@ namespace GameEngine {
 
 
             goodConsumeWeights = new Dictionary<GoodType, float>() {
-                {GoodType.Food, 0.1f },
+                {GoodType.Food, -0.1f },
             };
 
 
@@ -138,6 +138,8 @@ namespace GameEngine {
 
         public void updateTick() { //later this will need to take into account if there's enough to consume, update satisfaction, etc.
 
+
+
             //update lastTickConsumed
             foreach (KeyValuePair<GoodType, float> goodPair in goodConsumeWeights) {
 
@@ -147,6 +149,7 @@ namespace GameEngine {
                 else
                     lastTickConsumed.Add(goodPair.Key, NumPeople * goodPair.Value);
             }
+
 
             //update lastTickProduced
             foreach (KeyValuePair<GoodType, float> goodPair in goodProduceWeights) {

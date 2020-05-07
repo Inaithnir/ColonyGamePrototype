@@ -63,6 +63,7 @@ namespace GameEngine {
                 pileOGoods.Add(matchGood,delta);
 
             Debug.Log("Good " + goodToChange.ToString() + " changed by " + delta);
+            Debug.Log("Good " + goodToChange.ToString() + " has " + pileOGoods[matchGood] + " left");
             return;
         }
 

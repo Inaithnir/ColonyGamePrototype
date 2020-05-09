@@ -126,5 +126,21 @@ namespace GameEngine {
             return colonyGoods;
         }
 
+
+        public void applyModifier(Modifier modifierToApply, object objectToApplyTo) {
+            if (objectToApplyTo.GetType() == typeof(Building) || objectToApplyTo.GetType() == typeof(Demographic)) {
+
+               
+
+
+
+
+
+
+            }
+            else
+                throw new ArgumentException("Incorrect modifier application object defined: make sure it is either Demographic or Building!");
+        }
+
     }
 }

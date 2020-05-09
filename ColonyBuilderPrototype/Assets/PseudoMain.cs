@@ -34,5 +34,6 @@ public class PseudoMain : MonoBehaviour
             testGame.updateTick();
             Debug.Log("Tick done!");
         }
+
     }
 }

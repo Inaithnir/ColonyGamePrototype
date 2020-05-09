@@ -7,14 +7,7 @@ namespace GameEngine {
 
     class District {
 
-        public enum DistrictList : int {
-            GrowingBorough = 0,
-            Borough = 1,
-            Farmlands = 2,
-            Manufactories = 3
-        }
-
-        public DistrictList DistrictType { get; }
+        public DistrictTypes DistrictType { get; }
         public Population DistrictPopulation {get; }
         public List<Building> DistrictBuildings { get; }
         //Some kind of list with local modifiers
@@ -42,7 +35,7 @@ namespace GameEngine {
 
         //Constructor
 
-        public District(DistrictList typeIn) {
+        public District(DistrictTypes typeIn) {
 
             DistrictType = typeIn;
 

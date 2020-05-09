@@ -17,7 +17,7 @@ namespace GameEngine {
             playerColony = new Colony("TestColony");
 
 
-            playerColony.addDistrict(new District(District.DistrictList.Borough));
+            playerColony.addDistrict(new District(DistrictTypes.Borough));
         }
 
 

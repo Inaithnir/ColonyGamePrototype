@@ -9,16 +9,7 @@ namespace GameEngine {
 
 		public float Amount { get; }
 		public String Name { get; private set; }
-
-		public enum Affects {
-			Production = 1,
-			Consumption = 2
-		}
-
-		public Affects ModAffects { get; }
-		public bool IsGlobal { get; private set; }
-
-
+		public ModType ModAffects { get; }
 		
 	}
 }

@@ -19,10 +19,10 @@ namespace GameEngine {
 
             CurrentPop = 0;
 
-            demographics = new Demographic[3];
+            demographics = new Demographic[NumDemoTypes];
 
-            for (int i=0; i<3; i++) {
-                demographics[i] = new Demographic((Demographic.DemoType)(i + 1));
+            for (int i=0; i<NumDemoTypes; i++) {
+                demographics[i] = new Demographic((DemoType) i);
                 CurrentPop += demographics[i].NumPeople;
             }
             

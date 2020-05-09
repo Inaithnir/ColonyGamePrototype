@@ -12,13 +12,15 @@ namespace GameEngine {
             Food = 100,
         }
 
-        
+
 
         //Demographic stuff
 
 
         //Building stuff
-
+        public enum BuildingType : int {
+            TestFarm = 0,
+        }
 
         //District stuff
 

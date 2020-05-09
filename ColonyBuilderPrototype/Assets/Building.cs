@@ -8,11 +8,6 @@ namespace GameEngine {
     class Building {
 
 
-
-        public enum BuildingType : int {
-            TestFarm = 0,
-        }
-
         public BuildingType MyType { get; }
 
         Dictionary<GoodType, float> baseConsumption;

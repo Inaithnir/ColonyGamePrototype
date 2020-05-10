@@ -8,31 +8,29 @@ namespace GameEngine {
     class Building {
 
 
-        public BuildingType MyType { get; }
+        public BuildType MyType { get; }
 
         Dictionary<GoodType, float> baseConsumption;
         Dictionary<GoodType, float> baseProduction;
 
         Dictionary<GoodType, int> ConstructionCost;
 
-        public int SpaceRequired { get; }
+        public BuildSize SpaceRequired { get; }
 
         
 
-
-
         //Constructor
 
-            public Building(BuildingType buildingType) {
+            public Building(BuildType buildingType) {
 
             MyType = buildingType;
 
             baseConsumption = new Dictionary<GoodType, float>(); //these values have to be read in from a file somewhere
-            baseConsumption = new Dictionary<GoodType, float>(); //these values have to be read in from a file somewhere
+            baseProduction = new Dictionary<GoodType, float>(); //these values have to be read in from a file somewhere
 
             ConstructionCost = new Dictionary<GoodType, int>();  //these values have to be read in from a file somewhere
 
-            SpaceRequired = 1; //these values have to be read in from a file or enum somewhere
+            SpaceRequired = (BuildSize) Enum.Parse(typeof(BuildSize), MyType.ToString("g"));
 
 
         }

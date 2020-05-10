@@ -6,28 +6,11 @@ namespace GameEngine {
     
     class Demographic {
 
-       public enum DemoType : int { //if adjusted, make sure to change the type counter below and the appropriate production/consumption weight settings
-
-            Peasant = 1,
-            Merchant = 2,
-            Elite = 3,
-            Native = 4,
-
-        }
-        public const int NumDemoTypes = 4;
-
-        public enum BaseTargetPopDefault : int {
-
-            Peasant = 400,
-            Merchant = 250,
-            Elite = 150,
-            Native = 0,
-
-        }
+        
 
         public DemoType MyDemoType { get; }
         public int NumPeople { get; }
-        public int BaseTargetPop { get; }
+        public BaseTargetPop MyBaseTargetPop { get; }
         Dictionary<GoodType, float> goodConsumeWeights;
         Dictionary<GoodType, float> goodProduceWeights;
 
@@ -40,12 +23,10 @@ namespace GameEngine {
 
             MyDemoType = myType;
             NumPeople = 100;
-            BaseTargetPop = (int) myType;
-
-
-
+            MyBaseTargetPop = (BaseTargetPop)Enum.Parse(typeof(BaseTargetPop), MyDemoType.ToString("g"));
+            
             goodConsumeWeights = new Dictionary<GoodType, float>() {
-                {GoodType.Food, -0.1f },
+                {GoodType.Food, -0.05f },
             };
 
 

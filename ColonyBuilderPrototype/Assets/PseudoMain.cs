@@ -13,10 +13,6 @@ public class PseudoMain : MonoBehaviour
     Game testGame;
     
     
-    
-    
-    
-    
     // Start is called before the first frame update
     void Start()
     {

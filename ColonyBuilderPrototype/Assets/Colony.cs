@@ -29,10 +29,6 @@ namespace GameEngine {
 
 
 
-
-
-
-
             ColonyPopulation = 0;
 
             colonyName = name;
@@ -52,13 +48,6 @@ namespace GameEngine {
 
 
 
-
-
-
-
-
-
-
         //method
 
         public void addDistrict(District districtToAdd) {
@@ -66,11 +55,6 @@ namespace GameEngine {
 
             
         }        
-
-
-
-
-
 
 
 

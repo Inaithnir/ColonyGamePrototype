@@ -7,17 +7,20 @@ namespace GameEngine {
     class Game {
 
         Colony playerColony;
-
-
+        public static Game CurrentGame { get; private set; }
+        List<District> ColonyDistricts = new List<District>();
 
 
 
         public Game() {
+            CurrentGame = this;
+
+
+
 
             playerColony = new Colony("TestColony");
+            ColonyDistricts = playerColony.getDistrictList();
 
-
-            playerColony.addDistrict(new District(DistrictTypes.Borough));
         }
 
 

@@ -37,7 +37,8 @@ public class GameCalendar : MonoBehaviour {
     }
 
 	private void Start() {
-        TimeManager.OnTick += calendarUpdate;
+        //TimeManager.OnTick += calendarUpdate;
+        PseudoMain.OnTick += calendarUpdate;
         CurrentMonth = Months.January;
         CurrentWeek = 1;
         CurrentYear = 1;
@@ -52,7 +53,7 @@ public class GameCalendar : MonoBehaviour {
         
     }
 
-    private void calendarUpdate(object sender, TimeManager.OnTickEventArgs e) {
+    private void calendarUpdate(object sender, PseudoMain.OnTickEventArgs e) {
         int thisTick = e.tick;
         CurrentWeek++;
         if (CurrentWeek > 4){
@@ -77,6 +78,7 @@ public class GameCalendar : MonoBehaviour {
         dateDisplay.text = "Week "+CurrentWeek + " of " + CurrentMonth + ", Year " + CurrentYear;
 
     }
+
 
 }
 

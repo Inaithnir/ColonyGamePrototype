@@ -9,13 +9,13 @@ namespace GameEngine {
 
     class GoodsManager {
 
-        Dictionary<Good, int> pileOGoods;
+        Dictionary<Good, float> pileOGoods;
         Dictionary<GoodType, Good> goodTable;
 
         //constructor
         public GoodsManager(bool fullList) {
 
-            pileOGoods = new Dictionary<Good, int>();
+            pileOGoods = new Dictionary<Good, float>();
             goodTable = new Dictionary<GoodType, Good>();
             
             if (fullList == true) {
@@ -40,7 +40,7 @@ namespace GameEngine {
         *    Good goodQuery - good that we need the amount of
         * Returns: int, the amount of the good (or 0 if doesnt exist)
         */
-        public int getAmount(GoodType goodQuery) {
+        public float getAmount(GoodType goodQuery) {
             Good matchGood = goodTable[goodQuery];
             if (pileOGoods.ContainsKey(matchGood))
                 return pileOGoods[matchGood];
@@ -55,15 +55,12 @@ namespace GameEngine {
         *    int delta - the amount to change the value of the good by (or initialize with)
         * Returns: zip
         */
-        public void changeAmount (GoodType goodToChange,int delta) {
+        public void changeAmount (GoodType goodToChange,float delta) {
             Good matchGood = goodTable[goodToChange];
             if (pileOGoods.ContainsKey(matchGood))
                 pileOGoods[matchGood] += delta;
             else
                 pileOGoods.Add(matchGood,delta);
-
-            Debug.Log("Good " + goodToChange.ToString() + " changed by " + delta);
-            Debug.Log("Good " + goodToChange.ToString() + " has " + pileOGoods[matchGood] + " left");
             return;
         }
 
@@ -79,7 +76,7 @@ namespace GameEngine {
         public override String ToString()
         {
             String stringToReturn = "";
-            foreach(KeyValuePair<Good,int> goodPair in pileOGoods)
+            foreach(KeyValuePair<Good, float> goodPair in pileOGoods)
             {
                 stringToReturn += goodPair.Key.Name + " with amount " + goodPair.Value;
             }

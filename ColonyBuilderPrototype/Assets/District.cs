@@ -5,11 +5,12 @@ using static GameEngine.GameData;
 namespace GameEngine {
 
 
-    class District {
+    public class District {
 
         public DistrictTypes DistrictType { get; }
         public Population DistrictPopulation {get; }
         public List<Building> DistrictBuildings { get; }
+        public String DistrictName { get; private set; }
         //Some kind of list with local modifiers
         //Public Policy DistrictPolicy {get;}
 
@@ -35,9 +36,10 @@ namespace GameEngine {
 
         //Constructor
 
-        public District(DistrictTypes typeIn) {
+        public District(DistrictTypes typeIn, String nameIn="") {
 
             DistrictType = typeIn;
+            DistrictName = nameIn;
 
             if ((int)typeIn ==0 || (int)typeIn ==1)
                 DistrictPopulation = new Population();
@@ -126,6 +128,10 @@ namespace GameEngine {
 
         public void addBuilding(Building buildingToAdd) {
             DistrictBuildings.Add(buildingToAdd);
+        }
+
+        public List<Building> GetBuildings() {
+            return DistrictBuildings;
         }
 
 
@@ -221,19 +227,9 @@ namespace GameEngine {
                         buildingLastProduced[good] += building.getProduced(good) * BuildingProdMod;
                 }
 
-
-
             }
 
-
-
-
         }
-
-
-
-
-
 
     }
 }

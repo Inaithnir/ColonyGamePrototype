@@ -7,6 +7,8 @@ namespace GameEngine {
     class Colony {
 
         GoodsManager colonyGoods;
+
+        public static Colony PlayerColony { get; private set; }
         public String colonyName { get; }
 
         List<District> colonyDistricts;
@@ -23,13 +25,20 @@ namespace GameEngine {
         //Constructor
         public Colony(String name) {
 
+            PlayerColony = this;
+
+            ColonyPopulation = 0;
             colonyDistricts = new List<District>();
+            foreach(District district in colonyDistricts) {
+                ColonyPopulation += district.DistrictPopulation.CurrentPop;
+            }
+
 
             colonyGoods = new GoodsManager(true);
 
 
 
-            ColonyPopulation = 0;
+            
 
             colonyName = name;
 
@@ -43,7 +52,7 @@ namespace GameEngine {
 
 
 
-            colonyGoods.changeAmount(GoodType.Food, 100);
+            colonyGoods.changeAmount(GoodType.Food, 100); //TESTING PURPOSES
         }
 
 
@@ -52,16 +61,12 @@ namespace GameEngine {
 
         public void addDistrict(District districtToAdd) {
             colonyDistricts.Add(districtToAdd);
-
-            
+            ColonyPopulation += districtToAdd.DistrictPopulation.CurrentPop;
         }        
 
 
 
         public void updateTick() {
-
-
-
             ColonyPopulation = 0;
 
             Dictionary<GoodType, float> peopleConsumed = new Dictionary<GoodType, float>();
@@ -82,25 +87,18 @@ namespace GameEngine {
                 buildingProduced = district.getBuildingProduction();
 
                 foreach(KeyValuePair<GoodType, float> goodPair in peopleConsumed) {
-                    colonyGoods.changeAmount(goodPair.Key,(int) Math.Round( goodPair.Value * globalPeopleConsMod));
+                    colonyGoods.changeAmount(goodPair.Key,goodPair.Value * globalPeopleConsMod);
                 }
                 foreach (KeyValuePair<GoodType, float> goodPair in peopleProduced) {
-                    colonyGoods.changeAmount(goodPair.Key, (int)Math.Round(goodPair.Value * globalPeopleProdMod));
+                    colonyGoods.changeAmount(goodPair.Key, goodPair.Value * globalPeopleProdMod);
                 }
                 foreach (KeyValuePair<GoodType, float> goodPair in buildingConsumed) {
-                    colonyGoods.changeAmount(goodPair.Key, (int)Math.Round(goodPair.Value * globalBuildingConsMod));
+                    colonyGoods.changeAmount(goodPair.Key, goodPair.Value * globalBuildingConsMod);
                 }
                 foreach (KeyValuePair<GoodType, float> goodPair in buildingProduced) {
-                    colonyGoods.changeAmount(goodPair.Key, (int)Math.Round(goodPair.Value * globalBuildingProdMod));
+                    colonyGoods.changeAmount(goodPair.Key, goodPair.Value * globalBuildingProdMod);
                 }
-
             }
-
-
-
-
-
-
         }
 
 
@@ -110,20 +108,8 @@ namespace GameEngine {
             return colonyGoods;
         }
 
-
-        public void applyModifier(Modifier modifierToApply, object objectToApplyTo) {
-            if (objectToApplyTo.GetType() == typeof(Building) || objectToApplyTo.GetType() == typeof(Demographic)) {
-
-               
-
-
-
-
-
-
-            }
-            else
-                throw new ArgumentException("Incorrect modifier application object defined: make sure it is either Demographic or Building!");
+        public List<District> getDistrictList() {
+            return colonyDistricts;
         }
 
     }

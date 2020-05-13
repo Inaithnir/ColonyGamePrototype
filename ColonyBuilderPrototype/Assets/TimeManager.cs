@@ -6,13 +6,13 @@ using UnityEngine.UI;
 using System;
 public class TimeManager : MonoBehaviour
 {
-
+	
 	public class OnTickEventArgs : EventArgs {
 		public int tick;
 	}
 
 	public static event EventHandler<OnTickEventArgs> OnTick;
-
+	
 	public float BaseTickTime { get; } = 1;
 	public float GameSpeed;// { get; set; } = 1;
 	float currentTick;

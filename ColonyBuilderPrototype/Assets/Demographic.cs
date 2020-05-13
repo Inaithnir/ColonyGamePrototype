@@ -4,7 +4,7 @@ using static GameEngine.GameData;
 
 namespace GameEngine {
     
-    class Demographic {
+    public class Demographic {
 
         
 
@@ -19,30 +19,27 @@ namespace GameEngine {
 
         // constructors
 
-        public Demographic(DemoType myType) {
+        public Demographic(DemoType myType, int NumPeopleIn = 0) {
 
             MyDemoType = myType;
-            NumPeople = 100;
+            NumPeople = NumPeopleIn;
             MyBaseTargetPop = (BaseTargetPop)Enum.Parse(typeof(BaseTargetPop), MyDemoType.ToString("g"));
-            
-            goodConsumeWeights = new Dictionary<GoodType, float>() {
-                {GoodType.Food, -0.05f },
-            };
 
+            goodConsumeWeights = new Dictionary<GoodType, float>();
+            foreach(KeyValuePair<GoodType, float[]> goodPair in PeopleConsumptionWeights) {
+                goodConsumeWeights.Add(goodPair.Key, goodPair.Value[(int)MyDemoType]);
+            }
 
-
-            goodProduceWeights = new Dictionary<GoodType, float>() {
-                {GoodType.Food, 0 },
-            };
-
-
+            goodProduceWeights = new Dictionary<GoodType, float>();
+            foreach (KeyValuePair<GoodType, float[]> goodPair in PeopleProductionWeights) {
+                goodProduceWeights.Add(goodPair.Key, goodPair.Value[(int)MyDemoType]);
+            }
 
             lastTickConsumed = new Dictionary<GoodType, float>();
             lastTickProduced = new Dictionary<GoodType, float>();
-
-
-
         }
+
+        
         //TODO: constructor with forced NumPeople
 
 
@@ -50,7 +47,7 @@ namespace GameEngine {
 
 
         // methods
-        
+
         public float calcConsumption(GoodType good) {
 
             float toReturn = 0;

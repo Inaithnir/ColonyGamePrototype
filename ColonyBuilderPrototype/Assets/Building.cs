@@ -5,7 +5,7 @@ using static GameEngine.GameData;
 namespace GameEngine {
 
 
-    class Building {
+    public class Building {
 
 
         public BuildType MyType { get; }
@@ -21,12 +21,23 @@ namespace GameEngine {
 
         //Constructor
 
-            public Building(BuildType buildingType) {
+        public Building(BuildType buildingType) {
 
             MyType = buildingType;
 
-            baseConsumption = new Dictionary<GoodType, float>(); //these values have to be read in from a file somewhere
+            baseConsumption = new Dictionary<GoodType, float>();
+            GoodType[] baseConsumptionGoods = BuildingGoodsConsumed[MyType];//new Dictionary<GoodType, float>(); //these values have to be read in from a file somewhere
+            float[] baseConsumptionWeights = BuildingConsumptionWeights[MyType];
+            for (int i = 0; i < baseConsumptionGoods.Length; i++) {
+                baseConsumption.Add(baseConsumptionGoods[i], baseConsumptionWeights[i]);
+            }
+
             baseProduction = new Dictionary<GoodType, float>(); //these values have to be read in from a file somewhere
+            GoodType[] baseProductionGoods = BuildingGoodsProduced[MyType];//new Dictionary<GoodType, float>(); //these values have to be read in from a file somewhere
+            float[] baseProductionWeights = BuildingProductionWeights[MyType];
+            for (int i = 0; i < baseProductionWeights.Length; i++) {
+                baseConsumption.Add(baseProductionGoods[i], baseProductionWeights[i]);
+            }
 
             ConstructionCost = new Dictionary<GoodType, int>();  //these values have to be read in from a file somewhere
 

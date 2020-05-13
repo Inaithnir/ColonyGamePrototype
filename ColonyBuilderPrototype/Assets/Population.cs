@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using static GameEngine.GameData;
 
 namespace GameEngine {
-    class Population {
+    public class Population {
 
         public int CurrentPop { get; private set; }
-        Demographic[] demographics;
+        public Demographic[] demographics { get; private set; }
 
         Dictionary<GoodType, float> lastTickTotConsumed;
         Dictionary<GoodType, float> lastTickTotProduced;
@@ -19,10 +19,10 @@ namespace GameEngine {
 
             CurrentPop = 0;
 
-            demographics = new Demographic[NumDemoTypes];
+            demographics = new Demographic[3];//[NumDemoTypes];
 
-            for (int i=0; i<NumDemoTypes; i++) {
-                demographics[i] = new Demographic((DemoType) i);
+            for (int i = 0; i < 3; i++) {//(int i=0; i<NumDemoTypes; i++) {
+                demographics[i] = new Demographic((DemoType) i, 25);
                 CurrentPop += demographics[i].NumPeople;
             }
             
@@ -103,17 +103,6 @@ namespace GameEngine {
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
         public void updateTick() {
 
             //First, reset all consumption and production values to zero
@@ -132,12 +121,6 @@ namespace GameEngine {
             //Reset population to zero
 
             CurrentPop = 0;
-
-
-
-
-
-            //Loop over each demographic and add their consumption/production for each good
             foreach (Demographic demographic in demographics) {
 
                 demographic.updateTick();
@@ -161,38 +144,10 @@ namespace GameEngine {
                         lastTickTotProduced[good] += demographic.getLastProduction(good);
                 }
 
-
-
-
-
-
-
-
-
-
-
-
-                //TODO: Growh/shrink population and update total Population
-
-
-
                 CurrentPop += demographic.NumPeople;
-
-
 
             }
 
-
-
-
-
         }
-
-
-
-
-
-
-
     }
 }

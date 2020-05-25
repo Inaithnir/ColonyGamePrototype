@@ -1,13 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using static GameEngine.GameData;
 
 namespace GameEngine {
 
+    public class DistrictGrownEventArgs : EventArgs {
+        public Vector2 tileCoords;
+        public District district;
+    }
+
+
 
     public class District {
 
-        public DistrictTypes DistrictType { get; }
+        
+        public event EventHandler<DistrictGrownEventArgs> DistrictGrown;
+        public event EventHandler<DistrictGrownEventArgs> DistrictDone;
+
+
+        public DistrictTypes DistrictType { get; private set; }
         public Population DistrictPopulation {get; }
         public List<Building> DistrictBuildings { get; }
         public String DistrictName { get; private set; }
@@ -20,7 +32,10 @@ namespace GameEngine {
         public float PeopleConsumpMod { get; private set; } //To replace with dictionary of modifiers
         public float PeopleProdMod { get; private set; } //To replace with dictionary of modifiers
 
-
+        public List<MapTile> MyMapTiles { get; private set; }
+        List<MapTile> NeighbourTiles;
+        int tilesPerTick = 5;
+        int maxTiles = 100;
 
 
         Dictionary<GoodType, float> buildingLastConsumed;
@@ -36,7 +51,13 @@ namespace GameEngine {
 
         //Constructor
 
-        public District(DistrictTypes typeIn, String nameIn="") {
+        public District(DistrictTypes typeIn, MapTile initialTile, String nameIn="") {
+            MyMapTiles = new List<MapTile>();
+            MyMapTiles.Add(initialTile);
+            initialTile.setOwningDistrict(this);
+            NeighbourTiles = new List<MapTile>();
+            NeighbourTiles.AddRange(GameMap.ThisGameMap.getNeighbours(initialTile));
+            NeighbourTiles.RemoveAll(item => item.occupied == true);
 
             DistrictType = typeIn;
             DistrictName = nameIn;
@@ -156,6 +177,9 @@ namespace GameEngine {
 
             DistrictPopulation.updateTick();
 
+            if(DistrictType == 0) {
+                growDistrict();
+            }
             
 
 
@@ -229,6 +253,31 @@ namespace GameEngine {
 
             }
 
+        }
+        
+
+        public void growDistrict() {
+            Random rng = new Random();
+            for (int i = 0; i < tilesPerTick; i++) {
+                if (MyMapTiles.Count == maxTiles) {
+                    DistrictType = DistrictTypes.Borough;
+                    DistrictDone(this, new DistrictGrownEventArgs { district = this, tileCoords = new Vector2(0,0) });
+                    break;
+                }
+
+                MapTile newTile = NeighbourTiles[rng.Next(NeighbourTiles.Count)];
+                newTile.setOwningDistrict(this);
+                MyMapTiles.Add(newTile);
+                NeighbourTiles.RemoveAll(item => item == newTile);
+
+                List<MapTile> newNeighbours = GameMap.ThisGameMap.getNeighbours(newTile);
+
+                newNeighbours.RemoveAll(item => item.occupied == true);
+
+                NeighbourTiles.AddRange(newNeighbours);
+
+                DistrictGrown(this, new DistrictGrownEventArgs { district = this, tileCoords = new Vector2(newTile.x, newTile.y) }) ;
+            }
         }
 
     }

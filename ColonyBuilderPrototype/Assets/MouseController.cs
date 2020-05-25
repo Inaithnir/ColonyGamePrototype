@@ -28,24 +28,22 @@ public class MouseController : MonoBehaviour
     void Update()
     {
         if (Input.GetMouseButtonUp(0)) {
-            RaycastHit hit;
-            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-
+            
+            Vector3Int tileUnderMouse = MapGenerator.GetTileUnderMouse();
             if (EventSystem.current.IsPointerOverGameObject()) {
                 Debug.Log("Clicked on the UI");
             }
-            else if (Physics.Raycast(ray, out hit)) {
-                Transform objectHit = hit.transform;
-                GameObject gameObjectHit = objectHit.gameObject;
-                if (pseudoMain.GameObjectDistrictMap.ContainsKey(gameObjectHit)) {
-                    District districtHit = pseudoMain.GameObjectDistrictMap[gameObjectHit];
+            else if (pseudoMain.GameObjectDistrictMap.ContainsKey(tileUnderMouse)) {
+                    District districtHit = pseudoMain.GameObjectDistrictMap[tileUnderMouse];
                     districtPanelController.EnablePanel(districtHit);
-                }
-                Debug.Log(hit);
+                
+                Debug.Log(tileUnderMouse);
             }
             else
                 DistrictPanel.SetActive(false);
-            
+                        
         }
     }
 }
+
+

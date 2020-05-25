@@ -72,9 +72,12 @@
     <Compile Include="Assets\Game.cs" />
     <Compile Include="Assets\GameCalendar.cs" />
     <Compile Include="Assets\GameData.cs" />
+    <Compile Include="Assets\GameMap.cs" />
     <Compile Include="Assets\Good.cs" />
     <Compile Include="Assets\GoodTrackScript.cs" />
     <Compile Include="Assets\GoodsManager.cs" />
+    <Compile Include="Assets\MapGenerator.cs" />
+    <Compile Include="Assets\MapTile.cs" />
     <Compile Include="Assets\Modifier.cs" />
     <Compile Include="Assets\MouseController.cs" />
     <Compile Include="Assets\PopTrackScript.cs" />
@@ -641,6 +644,9 @@
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
       <HintPath>D:/Users/Pim/Mijn Documenten/Unity Projects/Colony Game Prototypes/ColonyGamePrototype/ColonyBuilderPrototype/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Tilemap.Editor">
+      <HintPath>D:/Users/Pim/Mijn Documenten/Unity Projects/Colony Game Prototypes/ColonyGamePrototype/ColonyBuilderPrototype/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>D:/Users/Pim/Mijn Documenten/Unity Projects/Colony Game Prototypes/ColonyGamePrototype/ColonyBuilderPrototype/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>

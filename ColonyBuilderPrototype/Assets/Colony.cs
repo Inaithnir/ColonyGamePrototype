@@ -29,9 +29,6 @@ namespace GameEngine {
 
             ColonyPopulation = 0;
             colonyDistricts = new List<District>();
-            foreach(District district in colonyDistricts) {
-                ColonyPopulation += district.DistrictPopulation.CurrentPop;
-            }
 
 
             colonyGoods = new GoodsManager(true);

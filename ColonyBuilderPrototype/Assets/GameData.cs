@@ -26,9 +26,9 @@ namespace GameEngine {
         public const int NumDemoTypes = 4;
 
         public enum BaseTargetPop {
-            Peasant = 400,
+            Peasant = 100,
             Merchant = 250,
-            Elite = 150,
+            Elite = 400,
             Native = 0,
 
         }
@@ -96,6 +96,18 @@ namespace GameEngine {
             Production = 1,
             Consumption = 2,
 
+        }
+
+
+
+
+        //Map Stuff
+        public enum TileType {
+            Grass = 1,
+            Forest = 2,
+            River = 3,
+            Mountain = 4,
+            Sea = 5
         }
     }
 }

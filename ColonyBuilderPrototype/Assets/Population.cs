@@ -22,7 +22,7 @@ namespace GameEngine {
             demographics = new Demographic[3];//[NumDemoTypes];
 
             for (int i = 0; i < 3; i++) {//(int i=0; i<NumDemoTypes; i++) {
-                demographics[i] = new Demographic((DemoType) i, 25);
+                demographics[i] = new Demographic((DemoType) i, 0);
                 CurrentPop += demographics[i].NumPeople;
             }
             

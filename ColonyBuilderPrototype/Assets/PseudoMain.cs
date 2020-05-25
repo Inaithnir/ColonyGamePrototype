@@ -5,6 +5,7 @@ using GameEngine;
 using UnityEngine.UI;
 using System.Globalization;
 using System;
+using UnityEngine.Tilemaps;
 
 public class PseudoMain : MonoBehaviour
 {
@@ -21,7 +22,9 @@ public class PseudoMain : MonoBehaviour
 
     Game testGame;
     Colony PlayerColony;
-    public Dictionary<GameObject, District> GameObjectDistrictMap { get; private set; }
+    public Dictionary<Vector3Int, District> GameObjectDistrictMap { get; private set; }
+
+    GameMap gameMap;
 
 
 
@@ -35,7 +38,8 @@ public class PseudoMain : MonoBehaviour
         testGame = new Game();
         PlayerColony = Colony.PlayerColony;
         tickCounter = 0;
-        GameObjectDistrictMap = new Dictionary<GameObject, District>();
+        GameObjectDistrictMap = new Dictionary<Vector3Int, District>();
+        gameMap = new GameMap(500, 500);
     }
 
     // Update is called once per frame
@@ -56,20 +60,26 @@ public class PseudoMain : MonoBehaviour
 
 
 
-    public void BuildDistrict() {
-        District districtToAdd = new District(GameData.DistrictTypes.Borough,xloc.ToString());
+    public District BuildDistrict(Vector3Int location) {
+        Debug.Log(GameMap.ThisGameMap.getTileAt(location.x, location.y));
+        District districtToAdd = new District(GameData.DistrictTypes.GrowingBorough, GameMap.ThisGameMap.getTileAt(location.x,location.y), xloc.ToString());
         PlayerColony.addDistrict(districtToAdd);
 
-        GameObject districtObject = Instantiate<GameObject>(districtPrefab, new Vector3(xloc, 0, 0), Quaternion.identity);
-        districtObject.name = "District " + xloc;
-        GameObjectDistrictMap.Add(districtObject, districtToAdd);
+        
+        
+        GameObjectDistrictMap.Add(location, districtToAdd);
 
         xloc+=2; //for testing purposes
+        return districtToAdd;
     }
 
 
 
-    public District getDistrict(GameObject districtObject) {
-        return GameObjectDistrictMap[districtObject];
+    public District getDistrict(Vector3Int districtPositiong) {
+        return GameObjectDistrictMap[districtPositiong];
     }
+
+
+
+
 }

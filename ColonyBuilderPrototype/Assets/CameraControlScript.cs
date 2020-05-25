@@ -14,9 +14,9 @@ public class CameraControlScript : MonoBehaviour {
     }
     private void Update() {
         if (Input.GetMouseButton(2)) {
-            var h = horizontalSpeed * -(Input.GetAxis("Mouse X")+ Input.GetAxis("Mouse Y"));
-            var v = verticalSpeed * -(Input.GetAxis("Mouse Y")- Input.GetAxis("Mouse X"));
-            transform.Translate(h, 0, v);
+            var h = horizontalSpeed * -(Input.GetAxis("Mouse X"));// * -(Input.GetAxis("Mouse X")+ Input.GetAxis("Mouse Y"));
+            var v = verticalSpeed * -(Input.GetAxis("Mouse Y"));// * -(Input.GetAxis("Mouse Y")- Input.GetAxis("Mouse X"));
+            transform.Translate(h, v,0);
         }
 
         if (Input.GetAxis("Mouse ScrollWheel") != 0) {
